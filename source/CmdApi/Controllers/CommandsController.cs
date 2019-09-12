@@ -5,6 +5,7 @@
     using CmdApi.Models;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     [Route("api/[controller]")]
     [ApiController]
@@ -51,6 +52,21 @@
                         Id = command.Id
                     },
                 command);
+        }
+
+        // INFO: PUT - api/commands/n
+        [HttpPut("{id}")]
+        public ActionResult PutCommandItem(int id, Command command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(command).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }
 }
