@@ -36,5 +36,21 @@
 
             return commandItem;
         }
+
+        // INFO: POST - api/commands
+        [HttpPost]
+        public ActionResult<Command> PostCommandItem(Command command)
+        {
+            _context.CommandItems.Add(command);
+            _context.SaveChanges();
+
+            return CreatedAtAction(
+                nameof(GetCommandItem),
+                new Command
+                    {
+                        Id = command.Id
+                    },
+                command);
+        }
     }
 }
