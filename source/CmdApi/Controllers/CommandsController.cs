@@ -52,7 +52,7 @@
                         Id = command.Id
                     },
                 command);
-        
+        }
 
         // INFO: PUT - api/commands/n
         [HttpPut("{id}")]
