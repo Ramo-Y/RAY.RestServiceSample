@@ -11,18 +11,18 @@
 
     public class Startup
     {
-        private readonly IConfiguration _configuration;
-
         public Startup(IConfiguration configuration)
         {
-            _configuration = configuration;
+            Configuration = configuration;
         }
+
+        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<CommandContext>(opt => opt.UseSqlServer(_configuration["Data:CommandAPIConnection:ConnectionString"]));
+            services.AddDbContext<CommandContext>(opt => opt.UseSqlServer(Configuration["Data:CommandAPIConnection:ConnectionString"]));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
