@@ -17,11 +17,24 @@
             _context = context;
         }
 
-        // GET:     api/commands
+        // INFO: GET - api/commands
         [HttpGet]
         public ActionResult<IEnumerable<Command>> GetCommands()
         {
             return _context.CommandItems;
+        }
+
+        // INFO: GET - api/commands/n
+        [HttpGet("{id}")]
+        public ActionResult<Command> GetCommandItem(int id)
+        {
+            var commandItem = _context.CommandItems.Find(id);
+            if (commandItem == null)
+            {
+                return NotFound();
+            }
+
+            return commandItem;
         }
     }
 }
