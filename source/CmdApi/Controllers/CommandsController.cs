@@ -2,19 +2,26 @@
 {
     using System.Collections.Generic;
 
+    using CmdApi.Models;
+
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
     [ApiController]
     public class CommandsController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> GetString()
+        private readonly CommandContext _context;
+
+        public CommandsController(CommandContext context)
         {
-            return new[]
-                       {
-                           "this", "is", "hard", "coded"
-                       };
+            _context = context;
+        }
+
+        // GET:     api/commands
+        [HttpGet]
+        public ActionResult<IEnumerable<Command>> GetCommands()
+        {
+            return _context.CommandItems;
         }
     }
 }
